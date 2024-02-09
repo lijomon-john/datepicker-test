@@ -8,8 +8,10 @@ const App = () => {
   const [endDate, setEndDate] = useState(null);
   const [dates, setDates] = useState(null)
   const [change, setChange] = useState(null)
+  const events = useState([])
 
   const handleChange = (date) => {
+    events.push("onChange")
     if (
       Array.isArray(date)
     ) {
@@ -57,6 +59,7 @@ const App = () => {
   };
 
   const handleChangeRaw = ({ target }) => {
+    events.push("onChangeRaw")
     if (target.value !== undefined && target.value !== '') {
       const dates = target.value.split(' - ').map((date) => {
         const d = new Date(date);
@@ -79,7 +82,11 @@ const App = () => {
       showMonthDropdown
       showYearDropdown={false}
       dateFormat={"MM/dd"}
+      onBlur={() => events.push("onBlur")}
+      onFocus={() => events.push("onFocus")}
     />
+
+    {events.map((e) => <p>{e}</p>)}
     </div>
 
   );
