@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 const App = () => {
   const [date, setDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [dates, setDates] = useState(null)
 
   const handleChange = (date) => {
     if (
@@ -45,10 +46,12 @@ const App = () => {
       setEndDate(endDate);
       const [from, to] = date.map((d) => (d !== null ? d.toISOString() : null));
       // props.change(from === null && to === null ? null : { from, to });
+      setDates(from + to);
     } else {
       setDate(date);
       const dateIso = date !== null ? (date).toISOString() : null;
       // props.change(dateIso);
+      setDates(dateIso)
     }
   };
 
@@ -63,7 +66,7 @@ const App = () => {
   };
   return (
     <div style={{margin: "10px"}}>
-
+<p>{dates}</p>
     <DatePicker
       selected={date}
       selectsRange={true}
