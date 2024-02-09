@@ -2,7 +2,9 @@ import { isValid } from "date-fns";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 const events = [];
+const validateDates = [];
 
 const App = () => {
   const [date, setDate] = useState(null);
@@ -61,6 +63,7 @@ const App = () => {
     if (target.value !== undefined && target.value !== "") {
       const dates = target.value.split(" - ").map((date) => {
         const d = new Date(date);
+        validateDates.push({date: d, isValid: isValid(d)})
         return isValid(d) ? d : new Date();
       });
       handleChange(dates);
@@ -84,8 +87,8 @@ const App = () => {
         onFocus={() => events.push("onFocus")}
       />
 
-      {events.map((e) => (
-        <p>{e}</p>
+      {validateDates.map((e) => (
+        <p>{JSON.stringify(e)}</p>
       ))}
     </div>
   );
