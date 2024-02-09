@@ -12,6 +12,7 @@ const App = () => {
   const [endDate, setEndDate] = useState(null);
   const [dates, setDates] = useState(null);
   const [change, setChange] = useState(null);
+  const today = new Date();
 
   const handleChange = (date) => {
     events.push("onChange");
@@ -96,7 +97,7 @@ const App = () => {
       <p>date changes: {validateDates.map((value) => (
         <p>{JSON.stringify(value)}</p>
       ))}
-      {JSON.stringify(new Date('02/01'))}
+      {JSON.stringify(new Date('02/01' + today.getFullYear()))}
       </p>
     </div>
   );
