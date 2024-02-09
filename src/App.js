@@ -96,6 +96,7 @@ const App = () => {
       <p>date changes: {validateDates.map((value) => (
         <p>{JSON.stringify(value)}</p>
       ))}
+      {JSON.stringify(new Date('02/01'))}
       </p>
     </div>
   );
