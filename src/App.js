@@ -1,25 +1,83 @@
-import logo from './logo.svg';
-import './App.css';
+import { isValid } from 'date-fns';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-function App() {
+const App = () => {
+  const [date, setDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleChange = (date) => {
+    if (
+      Array.isArray(date)
+    ) {
+      const [startDate, endDate] = date;
+
+      // if (props.config.showYearDropdown !== undefined && !props.config.showYearDropdown) {
+      //   if (
+      //     startDate !== null &&
+      //     startDate !== undefined &&
+      //     new Date().getFullYear() - startDate.getFullYear() > MaxYearDifference
+      //   ) {
+      //     startDate.setFullYear(new Date().getFullYear());
+      //   }
+
+      //   if (
+      //     endDate !== null &&
+      //     endDate !== undefined &&
+      //     new Date().getFullYear() - endDate.getFullYear() > MaxYearDifference
+      //   ) {
+      //     endDate.setFullYear(new Date().getFullYear());
+      //   }
+
+      //   if (
+      //     startDate !== null &&
+      //     startDate !== undefined &&
+      //     endDate !== null &&
+      //     endDate !== undefined &&
+      //     startDate.getMonth() > endDate.getMonth()
+      //   ) {
+      //     endDate.setFullYear(new Date().getFullYear() + MinYearDifference);
+      //   }
+      // }
+
+      setDate(startDate);
+      setEndDate(endDate);
+      const [from, to] = date.map((d) => (d !== null ? d.toISOString() : null));
+      // props.change(from === null && to === null ? null : { from, to });
+    } else {
+      setDate(date);
+      const dateIso = date !== null ? (date).toISOString() : null;
+      // props.change(dateIso);
+    }
+  };
+
+  const handleChangeRaw = ({ target }) => {
+    if (target.value !== undefined && target.value !== '') {
+      const dates = target.value.split(' - ').map((date) => {
+        const d = new Date(date);
+        return isValid(d) ? d : null;
+      });
+      handleChange(dates);
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{margin: "10px"}}>
+
+    <DatePicker
+      selected={date}
+      selectsRange={true}
+      startDate={date}
+      endDate={endDate}
+      onChange={handleChange}
+      onChangeRaw={handleChangeRaw}
+      showMonthDropdown
+      showYearDropdown={false}
+      dateFormat={"MM/dd"}
+    />
     </div>
+
   );
-}
+};
 
 export default App;
