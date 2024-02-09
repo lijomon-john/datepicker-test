@@ -61,12 +61,12 @@ const App = () => {
   };
 
   const handleChangeRaw = ({ target }) => {
-    targetValues.push(target.value)
+    targetValues.push(target.value);
     events.push("onChangeRaw");
     if (target.value !== undefined && target.value !== "") {
       const dates = target.value.split(" - ").map((date) => {
-        const d = new Date(date);
-        validateDates.push({date: d, isValid: isValid(d)})
+        const d = new Date(date + "/" + today.getFullYear());
+        validateDates.push({ date: d, isValid: isValid(d) });
         return isValid(d) ? d : new Date();
       });
       handleChange(dates);
@@ -75,14 +75,17 @@ const App = () => {
 
   function getBrowserName() {
     const userAgent = window.navigator.userAgent;
-  
+
     if (userAgent.indexOf("Firefox") !== -1) {
       return "Mozilla Firefox";
     } else if (userAgent.indexOf("Chrome") !== -1) {
       return "Google Chrome";
     } else if (userAgent.indexOf("Safari") !== -1) {
       return "Safari";
-    } else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident/") !== -1) {
+    } else if (
+      userAgent.indexOf("MSIE") !== -1 ||
+      userAgent.indexOf("Trident/") !== -1
+    ) {
       return "Internet Explorer";
     } else if (userAgent.indexOf("Edge") !== -1) {
       return "Microsoft Edge";
@@ -91,7 +94,6 @@ const App = () => {
     }
   }
 
-  
   return (
     <div style={{ margin: "10px" }}>
       <p>Selected Dates::: {dates}</p>
@@ -110,15 +112,19 @@ const App = () => {
         onFocus={() => events.push("onFocus")}
       />
 
-      <p>target values: {targetValues.map((value) => (
-        <p>{value}</p>
-      ))}
+      <p>
+        target values:{" "}
+        {targetValues.map((value) => (
+          <p>{value}</p>
+        ))}
       </p>
-      <p>date changes: {validateDates.map((value) => (
-        <p>{JSON.stringify(value)}</p>
-      ))}
-      {JSON.stringify(new Date('02/01' + "/" + today.getFullYear()))}
-      {getBrowserName()}
+      <p>
+        date changes:{" "}
+        {validateDates.map((value) => (
+          <p>{JSON.stringify(value)}</p>
+        ))}
+        {JSON.stringify(new Date("02/01" + "/" + today.getFullYear()))}
+        {getBrowserName()}
       </p>
     </div>
   );
