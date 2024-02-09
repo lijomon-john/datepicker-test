@@ -1,22 +1,20 @@
-import { isValid } from 'date-fns';
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { isValid } from "date-fns";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const App = () => {
   const [date, setDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [dates, setDates] = useState(null)
-  const [change, setChange] = useState(null)
-  const events = useState([])
+  const [dates, setDates] = useState(null);
+  const [change, setChange] = useState(null);
+  const events = [];
 
   const handleChange = (date) => {
-    events.push("onChange")
-    if (
-      Array.isArray(date)
-    ) {
+    events.push("onChange");
+    if (Array.isArray(date)) {
       const [startDate, endDate] = date;
-      setChange(date)
+      setChange(date);
       // if (props.config.showYearDropdown !== undefined && !props.config.showYearDropdown) {
       //   if (
       //     startDate !== null &&
@@ -52,16 +50,16 @@ const App = () => {
       setDates("from: " + from + "\n to: " + to);
     } else {
       setDate(date);
-      const dateIso = date !== null ? (date).toISOString() : null;
+      const dateIso = date !== null ? date.toISOString() : null;
       // props.change(dateIso);
-      setDates(dateIso)
+      setDates(dateIso);
     }
   };
 
   const handleChangeRaw = ({ target }) => {
-    events.push("onChangeRaw")
-    if (target.value !== undefined && target.value !== '') {
-      const dates = target.value.split(' - ').map((date) => {
+    events.push("onChangeRaw");
+    if (target.value !== undefined && target.value !== "") {
+      const dates = target.value.split(" - ").map((date) => {
         const d = new Date(date);
         return isValid(d) ? d : null;
       });
@@ -69,26 +67,27 @@ const App = () => {
     }
   };
   return (
-    <div style={{margin: "10px"}}>
-<p>Dates: {dates}</p>
-<p>Date: {JSON.stringify(change)}</p>
-    <DatePicker
-      selected={date}
-      selectsRange={true}
-      startDate={date}
-      endDate={endDate}
-      onChange={handleChange}
-      onChangeRaw={handleChangeRaw}
-      showMonthDropdown
-      showYearDropdown={false}
-      dateFormat={"MM/dd"}
-      onBlur={() => events.push("onBlur")}
-      onFocus={() => events.push("onFocus")}
-    />
+    <div style={{ margin: "10px" }}>
+      <p>Selected Dates::: {dates}</p>
+      <p>Date Array: {JSON.stringify(change)}</p>
+      <DatePicker
+        selected={date}
+        selectsRange={true}
+        startDate={date}
+        endDate={endDate}
+        onChange={handleChange}
+        onChangeRaw={handleChangeRaw}
+        showMonthDropdown
+        showYearDropdown={false}
+        dateFormat={"MM/dd"}
+        onBlur={() => events.push("onBlur")}
+        onFocus={() => events.push("onFocus")}
+      />
 
-    {events.map((e) => <p>{e}</p>)}
+      {events.map((e) => (
+        <p>{e}</p>
+      ))}
     </div>
-
   );
 };
 
