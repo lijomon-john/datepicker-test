@@ -7,13 +7,14 @@ const App = () => {
   const [date, setDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [dates, setDates] = useState(null)
+  const [change, setChange] = useState(null)
 
   const handleChange = (date) => {
     if (
       Array.isArray(date)
     ) {
       const [startDate, endDate] = date;
-
+      setChange(date)
       // if (props.config.showYearDropdown !== undefined && !props.config.showYearDropdown) {
       //   if (
       //     startDate !== null &&
@@ -67,7 +68,7 @@ const App = () => {
   return (
     <div style={{margin: "10px"}}>
 <p>Dates: {dates}</p>
-<p>Date: {date}</p>
+<p>Date: {JSON.stringify(change)}</p>
     <DatePicker
       selected={date}
       selectsRange={true}
