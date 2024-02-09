@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const events = [];
 const validateDates = [];
+const targetValues = [];
 
 const App = () => {
   const [date, setDate] = useState(null);
@@ -59,6 +60,7 @@ const App = () => {
   };
 
   const handleChangeRaw = ({ target }) => {
+    targetValues.push(target)
     events.push("onChangeRaw");
     if (target.value !== undefined && target.value !== "") {
       const dates = target.value.split(" - ").map((date) => {
