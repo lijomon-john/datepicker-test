@@ -46,7 +46,7 @@ const App = () => {
       setEndDate(endDate);
       const [from, to] = date.map((d) => (d !== null ? d.toISOString() : null));
       // props.change(from === null && to === null ? null : { from, to });
-      setDates("from: " + from + " to: " + to);
+      setDates("from: " + from + "\n to: " + to);
     } else {
       setDate(date);
       const dateIso = date !== null ? (date).toISOString() : null;
@@ -66,7 +66,8 @@ const App = () => {
   };
   return (
     <div style={{margin: "10px"}}>
-<p>{dates}</p>
+<p>Dates: {dates}</p>
+<p>Date: {date}</p>
     <DatePicker
       selected={date}
       selectsRange={true}
