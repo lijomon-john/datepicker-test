@@ -46,7 +46,7 @@ const App = () => {
       setEndDate(endDate);
       const [from, to] = date.map((d) => (d !== null ? d.toISOString() : null));
       // props.change(from === null && to === null ? null : { from, to });
-      setDates(from + to);
+      setDates("from: " + from + " to: " + to);
     } else {
       setDate(date);
       const dateIso = date !== null ? (date).toISOString() : null;
