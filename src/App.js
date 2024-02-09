@@ -2,13 +2,13 @@ import { isValid } from "date-fns";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+const events = [];
 
 const App = () => {
   const [date, setDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [dates, setDates] = useState(null);
   const [change, setChange] = useState(null);
-  const events = [];
 
   const handleChange = (date) => {
     events.push("onChange");
@@ -61,7 +61,7 @@ const App = () => {
     if (target.value !== undefined && target.value !== "") {
       const dates = target.value.split(" - ").map((date) => {
         const d = new Date(date);
-        return isValid(d) ? d : null;
+        return isValid(d) ? d : new Date();
       });
       handleChange(dates);
     }
