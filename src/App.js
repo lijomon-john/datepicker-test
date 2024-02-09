@@ -72,6 +72,26 @@ const App = () => {
       handleChange(dates);
     }
   };
+
+  function getBrowserName() {
+    const userAgent = window.navigator.userAgent;
+  
+    if (userAgent.indexOf("Firefox") !== -1) {
+      return "Mozilla Firefox";
+    } else if (userAgent.indexOf("Chrome") !== -1) {
+      return "Google Chrome";
+    } else if (userAgent.indexOf("Safari") !== -1) {
+      return "Safari";
+    } else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident/") !== -1) {
+      return "Internet Explorer";
+    } else if (userAgent.indexOf("Edge") !== -1) {
+      return "Microsoft Edge";
+    } else {
+      return "Unknown";
+    }
+  }
+
+  
   return (
     <div style={{ margin: "10px" }}>
       <p>Selected Dates::: {dates}</p>
@@ -98,6 +118,7 @@ const App = () => {
         <p>{JSON.stringify(value)}</p>
       ))}
       {JSON.stringify(new Date('02/01' + "/" + today.getFullYear()))}
+      {getBrowserName()}
       </p>
     </div>
   );
