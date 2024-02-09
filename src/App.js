@@ -60,7 +60,7 @@ const App = () => {
   };
 
   const handleChangeRaw = ({ target }) => {
-    targetValues.push(target)
+    targetValues.push(target.value)
     events.push("onChangeRaw");
     if (target.value !== undefined && target.value !== "") {
       const dates = target.value.split(" - ").map((date) => {
@@ -89,9 +89,14 @@ const App = () => {
         onFocus={() => events.push("onFocus")}
       />
 
-      {validateDates.map((e) => (
-        <p>{JSON.stringify(e)}</p>
+      <p>target values: {targetValues.map((value) => (
+        <p>{value}</p>
       ))}
+      </p>
+      <p>date changes: {validateDates.map((value) => (
+        <p>{JSON.stringify(value)}</p>
+      ))}
+      </p>
     </div>
   );
 };
