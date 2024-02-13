@@ -124,7 +124,7 @@ const App = () => {
           <p>{JSON.stringify(value)}</p>
         ))}
         {JSON.stringify(new Date("02/01" + "/" + today.getFullYear()))}
-        {getBrowserName()}
+        {window.navigator.userAgent}
       </p>
     </div>
   );
