@@ -100,14 +100,11 @@ const App = () => {
       <p>Date Array: {JSON.stringify(change)}</p>
       <DatePicker
         selected={date}
-        selectsRange={true}
+        selectsRange={false}
         startDate={date}
         endDate={endDate}
         onChange={handleChange}
         onChangeRaw={handleChangeRaw}
-        showMonthDropdown
-        showYearDropdown={false}
-        dateFormat={"MM/dd"}
         onBlur={() => events.push("onBlur")}
         onFocus={() => events.push("onFocus")}
       />
@@ -124,7 +121,7 @@ const App = () => {
           <p>{JSON.stringify(value)}</p>
         ))}
         {JSON.stringify(new Date("02/01" + "/" + today.getFullYear()))}
-        {window.navigator.userAgent}
+        {getBrowserName()}
       </p>
     </div>
   );
